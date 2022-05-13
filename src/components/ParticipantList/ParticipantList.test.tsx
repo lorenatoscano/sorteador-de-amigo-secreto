@@ -10,7 +10,7 @@ jest.mock('../../hooks/useParticipantList', () => {
   };
 });
 
-describe('uma lista vazia de participantes', () => {
+describe('uma lista vazia de participantes <ParticipantList />', () => {
   beforeEach(() => {
     (useParticipantList as jest.Mock).mockReturnValue([]);
   });
@@ -27,7 +27,7 @@ describe('uma lista vazia de participantes', () => {
   });
 });
 
-describe('uma lista preenchida de participantes', () => {
+describe('uma lista preenchida de participantes <ParticipantList />', () => {
   const participants = ['Ana', 'Catarina'];
   beforeEach(() => {
     (useParticipantList as jest.Mock).mockReturnValue(participants);

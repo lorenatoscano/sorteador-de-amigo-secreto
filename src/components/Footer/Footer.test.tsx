@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { RecoilRoot } from 'recoil';
 import { Footer } from '.';
@@ -10,12 +10,20 @@ jest.mock('../../hooks/useParticipantList', () => {
   };
 });
 
-describe('quando não existem participantes suficientes', () => {
-  test('a brincadeira não pode ser iniciada', () => {
-    beforeEach(() => {
-      (useParticipantList as jest.Mock).mockReturnValue([]);
-    });
+const mockNavigate = jest.fn();
 
+jest.mock('react-router-dom', () => {
+  return {
+    useNavigate: () => mockNavigate,
+  };
+});
+
+describe('<Footer /> quando não existem participantes suficientes', () => {
+  beforeEach(() => {
+    (useParticipantList as jest.Mock).mockReturnValue([]);
+  });
+
+  test('a brincadeira não pode ser iniciada', () => {
     render(
       <RecoilRoot>
         <Footer />
@@ -28,16 +36,16 @@ describe('quando não existem participantes suficientes', () => {
   });
 });
 
-describe('quando existem participantes suficientes', () => {
-  test('a brincadeira pode ser iniciada', () => {
-    beforeEach(() => {
-      (useParticipantList as jest.Mock).mockReturnValue([
-        'Ana',
-        'Catarina',
-        'Josefina',
-      ]);
-    });
+describe('<Footer /> quando existem participantes suficientes', () => {
+  beforeEach(() => {
+    (useParticipantList as jest.Mock).mockReturnValue([
+      'Ana',
+      'Catarina',
+      'Josefina',
+    ]);
+  });
 
+  test('a brincadeira pode ser iniciada', () => {
     render(
       <RecoilRoot>
         <Footer />
@@ -47,5 +55,19 @@ describe('quando existem participantes suficientes', () => {
     const button = screen.getByRole('button');
 
     expect(button).not.toBeDisabled();
+  });
+
+  test('a brincadeira foi iniciada', () => {
+    render(
+      <RecoilRoot>
+        <Footer />
+      </RecoilRoot>
+    );
+
+    const button = screen.getByRole('button');
+    fireEvent.click(button);
+
+    expect(mockNavigate).toHaveBeenCalledTimes(1);
+    expect(mockNavigate).toHaveBeenCalledWith('/draw');
   });
 });
