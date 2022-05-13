@@ -2,15 +2,22 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { RecoilRoot } from 'recoil';
 import { Footer } from '.';
-import { useParticipantList } from '../../hooks/useParticipantList';
+import { useParticipantList } from '../../states/hooks/useParticipantList';
 
-jest.mock('../../hooks/useParticipantList', () => {
+jest.mock('../../states/hooks/useParticipantList', () => {
   return {
     useParticipantList: jest.fn(),
   };
 });
 
 const mockNavigate = jest.fn();
+const mockDraw = jest.fn();
+
+jest.mock('../../states/hooks/useDrawing', () => {
+  return {
+    useDrawing: () => mockDraw,
+  };
+});
 
 jest.mock('react-router-dom', () => {
   return {
@@ -69,5 +76,6 @@ describe('<Footer /> quando existem participantes suficientes', () => {
 
     expect(mockNavigate).toHaveBeenCalledTimes(1);
     expect(mockNavigate).toHaveBeenCalledWith('/draw');
+    expect(mockDraw).toHaveBeenCalledTimes(1);
   });
 });

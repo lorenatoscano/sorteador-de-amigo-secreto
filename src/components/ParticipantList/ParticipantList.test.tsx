@@ -2,9 +2,9 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { RecoilRoot } from 'recoil';
 import { ParticipantList } from '.';
-import { useParticipantList } from '../../hooks/useParticipantList';
+import { useParticipantList } from '../../states/hooks/useParticipantList';
 
-jest.mock('../../hooks/useParticipantList', () => {
+jest.mock('../../states/hooks/useParticipantList', () => {
   return {
     useParticipantList: jest.fn(),
   };

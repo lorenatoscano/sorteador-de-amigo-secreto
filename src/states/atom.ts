@@ -5,6 +5,10 @@ export const participantListState = atom<string[]>({
   default: [],
 });
 
+export const drawnResultsState = atom<Map<string, string>>({
+  key: 'drawnResultsState',
+  default: new Map(),
+});
 export const errorState = atom<string>({
   key: 'errorState',
   default: '',

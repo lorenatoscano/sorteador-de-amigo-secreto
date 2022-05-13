@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import { useAddParticipant } from '../../hooks/useAddParticipant';
-import { useErrorMessage } from '../../hooks/useErrorMessage';
+import { useAddParticipant } from '../../states/hooks/useAddParticipant';
+import { useErrorMessage } from '../../states/hooks/useErrorMessage';
 
 import './styles.css';
 

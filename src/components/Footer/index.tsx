@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { useParticipantList } from '../../hooks/useParticipantList';
+import { useDrawing } from '../../states/hooks/useDrawing';
+import { useParticipantList } from '../../states/hooks/useParticipantList';
 
 import './styles.css';
 
@@ -8,7 +9,10 @@ export const Footer = () => {
 
   const navigate = useNavigate();
 
+  const draw = useDrawing();
+
   const start = () => {
+    draw();
     navigate('/draw');
   };
 
