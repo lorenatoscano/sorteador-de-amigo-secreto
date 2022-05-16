@@ -38,7 +38,7 @@ describe('na pagina de sorteio', () => {
     );
 
     const options = screen.queryAllByRole('option');
-    expect(options).toHaveLength(participants.length);
+    expect(options).toHaveLength(participants.length + 1);
   });
 
   test('o amigo secreto é exibido quando solicitado', () => {
